@@ -1,0 +1,115 @@
+﻿@model BT.Model.ViewModel.Account.AccountRegisterEntity
+@{
+    ViewData["Title"] = "UserRegister";
+}
+<!DOCTYPE html>
+<html>
+<!--Head-->
+<head>
+    <meta charset="utf-8" />
+    <title>注册会员</title>
+    <meta name="description" content="register page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+    <!--Beyond styles-->
+    <link href="/css/beyond.min.css?v=1.0" rel="stylesheet" />
+    <link href="/css/demo.min.css" rel="stylesheet" />
+    <link href="/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="/js/skins.min.js"></script>
+</head>
+<!--Head Ends-->
+<!--Body-->
+<body>
+    <form data-ajax-url="@Url.Action("UserRegister","Login")" data-ajax="true" data-ajax-mode="before" data-ajax-update="#form" data-ajax-success="Success" data-ajax-begin="Begin" data-ajax-method="post">
+        @Html.AntiForgeryToken()
+        <div class="register-container animated fadeInDown">
+            <div class="registerbox bg-white" style="height:300px;">
+                <div class="registerbox-title">Register</div>
+
+                <div class="registerbox-caption ">Please fill in your information</div>
+                <div class="registerbox-textbox">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "手机号/邮箱/帐号" })
+                </div>
+                <div class="registerbox-textbox">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "密码" })
+                </div>
+                <div class="registerbox-textbox">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @placeholder = "确认密码" })
+                </div>
+                @*<hr class="wide" />
+                    <div class="registerbox-textbox">
+                        <input type="text" class="form-control" placeholder="Name" />
+                    </div>
+                    <div class="registerbox-textbox">
+                        <input type="text" class="form-control" placeholder="Family" />
+                    </div>
+                    <div class="registerbox-textbox">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-xs-6 padding-right-10">
+                                <input type="text" class="form-control" placeholder="Month" />
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-xs-3 no-padding padding-right-10">
+                                <input type="text" class="form-control" placeholder="Day" />
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-xs-3 no-padding-left">
+                                <input type="text" class="form-control" placeholder="Year" />
+                            </div>
+                        </div>
+                    </div>*@
+                @*<div class="registerbox-textbox no-padding-bottom">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-primary" checked="checked">
+                                <span class="text darkgray">I agree to the Company <a class="themeprimary">Terms of Service</a> and Privacy Policy</span>
+                            </label>
+                        </div>
+                    </div>*@
+                <div class="registerbox-submit">
+                    <input type="submit" class="btn btn-primary pull-right" value="注册为会员">
+                </div>
+            </div>
+            <div class="logobox">
+                <div class="registerbox-caption ">恭喜您，即将即将成为会员</div>
+            </div>
+        </div>
+    </form>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/form/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/bootbox/bootbox.js"></script>
+    <script src="/bootbox/alert.js"></script>
+    <script>
+        function Success(res) {
+            user.autoAlert(res.errorMessage);
+            if (res.success) {
+                
+            } else {
+                user.autoAlert(res.errorMessage);
+            }
+        }
+        function Begin() {
+            if ($("#UserName").val().length < 1) {
+                user.autoAlert("请输入帐号", false);
+                return false;
+            }
+            if ($("#Password").val().length < 1) {
+                user.autoAlert("请输入密码");
+                return false;
+            }
+            if ($("#ConfirmPassword").val() != $("#Password").val()) { 
+                user.autoAlert("两次输入密码不一致");
+                return false;
+            }
+        }
+        function Failure() {
+
+        }
+    </script>
+
+</body>
+<!--Body Ends-->
+</html>
